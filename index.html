@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>CleanCut</title>
+  <link rel="stylesheet" href="/src/styles/main.css">
+</head>
+<body>
+  <div class="app-root">
+    <header class="app-header">
+      <div class="header-brand">
+        <svg class="brand-mark" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <rect x="2" y="2" width="11" height="11" rx="2.5" stroke="currentColor" stroke-width="1.75"/>
+          <rect x="7" y="7" width="11" height="11" rx="2.5" fill="currentColor"/>
+        </svg>
+        <h1>CleanCut</h1>
+      </div>
+      <div class="toolbar" role="toolbar" aria-label="Main toolbar">
+        <label for="file-input" class="btn btn-primary" tabindex="0">Choose Photos<input id="file-input" type="file" accept="image/*" multiple hidden></label>
+        <button id="btn-share-all" type="button" class="btn btn-outline" hidden>Save All</button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="stage-panel" aria-label="Preview stage">
+        <div id="empty-dropzone" class="empty-dropzone" tabindex="0" role="button" aria-label="Drop photos here">
+          <div class="dropzone-card">
+            <div class="dropzone-icon-badge" aria-hidden="true">
+              <svg class="dropzone-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+            </div>
+            <h2>Drop photos here</h2>
+            <p class="dropzone-note">Select one or multiple photos</p>
+            <label for="file-input-dz" class="btn btn-primary">Choose Photos<input id="file-input-dz" type="file" accept="image/*" multiple hidden></label>
+          </div>
+        </div>
+
+        <div id="photo-feed" class="photo-feed" role="list" aria-label="Uploaded photos" hidden></div>
+      </section>
+
+      <aside id="controls-panel" class="controls-panel" aria-label="Editing controls" hidden>
+        <div id="scope-group" class="control-group glass-group" hidden>
+          <span class="group-title">Scope</span>
+          <div class="scope-switcher" role="radiogroup" aria-label="Apply settings scope">
+            <button type="button" class="scope-tab active" data-scope="all" role="radio" aria-checked="true">All photos</button>
+            <button type="button" class="scope-tab" data-scope="one" role="radio" aria-checked="false">This photo</button>
+          </div>
+        </div>
+
+        <div id="panel-chroma" class="control-section">
+          <div class="control-group">
+            <div class="color-picker-row">
+              <input type="color" id="chroma-color" value="#ffffff" aria-label="Background color" class="color-swatch-input">
+              <span id="chroma-color-hex" class="hex-readout">#ffffff</span>
+            </div>
+            <div class="presets-row" role="group" aria-label="Color presets">
+              <button type="button" class="swatch-btn" data-color="#ffffff" style="--swatch-color: #ffffff;" aria-label="White preset"></button>
+              <button type="button" class="swatch-btn" data-color="#00b140" style="--swatch-color: #00b140;" aria-label="Green preset"></button>
+              <button type="button" class="swatch-btn" data-color="#0047bb" style="--swatch-color: #0047bb;" aria-label="Blue preset"></button>
+              <button type="button" class="swatch-btn" data-color="#000000" style="--swatch-color: #000000;" aria-label="Black preset"></button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="tool-toggle-row">
+              <div class="tool-switcher" role="group" aria-label="Tool">
+                <button id="tool-pick" type="button" class="tool-tab active" aria-pressed="true">Pick</button>
+                <button id="tool-close" type="button" class="tool-tab" aria-pressed="false">Close</button>
+                <button id="tool-erase" type="button" class="tool-tab" aria-pressed="false">Erase</button>
+              </div>
+              <button id="btn-clear-strokes" type="button" class="btn btn-outline btn-sm" hidden disabled>Clear</button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="slider-header">
+              <label for="chroma-tolerance">Strength</label>
+              <output for="chroma-tolerance" id="chroma-tolerance-val">26%</output>
+            </div>
+            <input type="range" id="chroma-tolerance" min="0" max="100" value="26" class="range-slider">
+          </div>
+
+          <div class="control-group">
+            <div class="slider-header">
+              <label for="chroma-smoothness">Smoothness</label>
+              <output for="chroma-smoothness" id="chroma-smoothness-val">8%</output>
+            </div>
+            <input type="range" id="chroma-smoothness" min="0" max="100" value="8" class="range-slider">
+          </div>
+        </div>
+
+        <div class="control-section export-section">
+          <button id="btn-download-one" type="button" class="btn btn-outline w-full" disabled>Download PNG</button>
+          <button id="btn-download-zip" type="button" class="btn btn-primary w-full" disabled hidden>Download All PNGs</button>
+          <progress id="batch-progress" max="100" value="0" hidden></progress>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
